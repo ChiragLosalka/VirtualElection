@@ -1,20 +1,17 @@
 package com.javaprojects.virtualelection.model;
+
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-//@Table(name="VOTER")
-public class Voter implements Serializable {
-
-    private String voterId;
-    private String firstName;
-    private String lastName;
+public class Candidate implements Serializable {
+    private String CandidateId;
+    private String FirstName;
+    private String LastName;
     private Constituency constituencyName;
-    private boolean hasVoted;
-
-    public Voter() {}
+    private PoliticalParty partyName;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_seq")
@@ -23,35 +20,31 @@ public class Voter implements Serializable {
             strategy = "com.javaprojects.virtualelection.model.StringPrefixedSequenceIdGenerator",
             parameters = {
                     @org.hibernate.annotations.Parameter(name = StringPrefixedSequenceIdGenerator.INCREMENT_PARAM, value = "2"),
-                    @org.hibernate.annotations.Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "Voter_"),
+                    @org.hibernate.annotations.Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "Candidate_"),
                     @org.hibernate.annotations.Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d") })
-    @Column(nullable = false, unique=true, columnDefinition="VARCHAR(64)")
-    public String getVoterId() {
-        return voterId;
+    @Column(nullable = false, unique = true, columnDefinition = "VARCHAR(64)")
+    public String getCandidateId() {
+        return CandidateId;
     }
 
-    public void setVoterId(String voterId) {
-        this.voterId = voterId;
+    public void setCandidateId(String candidateId) {
+        CandidateId = candidateId;
     }
 
     public String getFirstName() {
-        return firstName;
+        return FirstName;
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        FirstName = firstName;
     }
 
     public String getLastName() {
-        return lastName;
+        return LastName;
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setConstituencyName(Constituency constituencyName) {
-        this.constituencyName = constituencyName;
+        LastName = lastName;
     }
 
     @JoinColumn(name = "CONSTITUENCY_NAME")
@@ -60,11 +53,17 @@ public class Voter implements Serializable {
         return constituencyName;
     }
 
-    public boolean isHasVoted() {
-        return hasVoted;
+    public void setConstituencyName(Constituency constituencyName) {
+        this.constituencyName = constituencyName;
     }
 
-    public void setHasVoted(boolean hasVoted) {
-        this.hasVoted = hasVoted;
+    @JoinColumn(name = "PARTY_NAME")
+    @ManyToOne(fetch = FetchType.LAZY)
+    public PoliticalParty getPartyName() {
+        return partyName;
+    }
+
+    public void setPartyName(PoliticalParty partyName) {
+        this.partyName = partyName;
     }
 }
