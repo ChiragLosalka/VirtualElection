@@ -7,37 +7,45 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "CONSTITUENCY")
 public class Constituency implements Serializable {
-    private String constituencyId;
-    private String name;
+    private String constituencyName;
+    private String winningPary;
     private String state;
+    private boolean countingCompleted = false;
+
+    public Constituency() {}
 
     @Id
-    @Column(name = "CONSTITUENCY_ID", nullable = false, unique=true)
-    public String getConstituencyId() {
-        return constituencyId;
+    @Column(nullable = false, unique=true, columnDefinition="VARCHAR(64)")
+    public String getConstituencyName() {
+        return constituencyName;
     }
 
-    public void setConstituencyId(String constituencyId) {
-        this.constituencyId = constituencyId;
+    public void setConstituencyName(String constituencyName) {
+        this.constituencyName = constituencyName;
     }
 
-    @Column(name = "NAME")
-    public String getName() {
-        return name;
+    public String getWinningPary() {
+        return winningPary;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setWinningPary(String winningPary) {
+        this.winningPary = winningPary;
     }
 
-    @Column(name = "STATE")
     public String getState() {
         return state;
     }
 
     public void setState(String state) {
         this.state = state;
+    }
+    @Column(nullable = false)
+    public boolean isCountingCompleted() {
+        return countingCompleted;
+    }
+
+    public void setCountingCompleted(boolean countingCompleted) {
+        this.countingCompleted = countingCompleted;
     }
 }
