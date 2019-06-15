@@ -5,10 +5,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-//@Table(name="VOTER")
 public class Voter implements Serializable {
 
     private String voterId;
+    private String aadhaarId;
     private String firstName;
     private String lastName;
     private Constituency constituencyName;
@@ -32,6 +32,15 @@ public class Voter implements Serializable {
 
     public void setVoterId(String voterId) {
         this.voterId = voterId;
+    }
+
+    @Column(unique = true)
+    public String getAadhaarId() {
+        return aadhaarId;
+    }
+
+    public void setAadhaarId(String aadhaarId) {
+        this.aadhaarId = aadhaarId;
     }
 
     public String getFirstName() {
