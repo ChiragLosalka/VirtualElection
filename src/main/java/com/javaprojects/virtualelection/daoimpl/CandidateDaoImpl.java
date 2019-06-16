@@ -10,6 +10,8 @@ import com.javaprojects.virtualelection.repository.PoliticalPartyRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class CandidateDaoImpl implements CandidateDao {
     @Autowired
@@ -27,6 +29,13 @@ public class CandidateDaoImpl implements CandidateDao {
             Constituency constituency = constituencyRepo.findById(constituencyName).get();
             candidate.setPartyName(politicalParty);
             candidate.setConstituencyName(constituency);
+
+            //check if candidate exists for that constituency and party simultaneously
+            //don't register if it exists...
+
+            List<Candidate> listOfCandidate = candidateRepo.findByConsituencyNameAndPartyName(constituency, politicalParty);
+            if(listOfCandidate.size() != 0)
+                return "Candidate for " + politicalParty.getPartyName() + " already exists in " + constituencyName + " constituency";
         }catch(Exception e) {
             return "Registration Failed : " + e.getMessage();
         }
