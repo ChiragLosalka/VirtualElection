@@ -12,6 +12,7 @@ public class Candidate implements Serializable {
     private String LastName;
     private Constituency constituencyName;
     private PoliticalParty partyName;
+    private Integer noOfVotes;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_seq")
@@ -65,5 +66,13 @@ public class Candidate implements Serializable {
 
     public void setPartyName(PoliticalParty partyName) {
         this.partyName = partyName;
+    }
+
+    public Integer getNoOfVotes() {
+        return noOfVotes;
+    }
+
+    public void setNoOfVotes(Integer noOfVotes) {
+        this.noOfVotes = noOfVotes;
     }
 }

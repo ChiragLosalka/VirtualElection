@@ -16,6 +16,7 @@ public class CandidateServiceImpl implements CandidateService {
         Candidate candidate = new Candidate();
         candidate.setFirstName(firstName);
         candidate.setLastName(lastName);
+        candidate.setNoOfVotes(0);
         return candidateDao.registerCandidate(partyName, constituencyName, candidate);
     }
 }
